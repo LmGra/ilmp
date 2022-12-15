@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>{{ object.namePet }}</h2>
+
+    <h3>{{ object.infoPet }}</h3>
+
+        </br>
+
+        <p>Género : {{ object.genderPet }}</p>
+        <p>Tipo de Animal : {{ object.typePet }}</p>
+        <p>Nacido el {{ object.agePet }}</p>
+        </br>
+        <p>Imagen : <img src="/media/{{ object.imgPet }}"></p>
+        </br>
+        <p>Dueño : {{ object.usrPet }}</p>
+    
+{% endblock %}

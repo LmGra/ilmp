@@ -1,0 +1,14 @@
+
+
+{% block content %}
+
+<h2>{{ object.infoLost }}</h2>
+
+</br>
+    <p>Nombre : {{ object.petLost }}</p>
+    <!--<p>AAAAA:{{ object.petLost.genderPet }}</p>-->
+    <p>Imagen : <img src="/media/{{ object.petLost.imgPet }}"></p>
+    </br>
+    <p>Lugar de la pérdida : {{ object.ubiLost }}</p>
+
+{% endblock %}

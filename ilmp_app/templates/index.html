@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <div>
+            Logeado como {{user.username}} 
+            <a href="{% url 'logout' %}">Deslogear</a>
+        </div>
+    {% else %}
+        <div>
+            <a href="{% url 'login' %}">Logear</a>
+        </div>
+        <div>
+            <a moz-do-not-send="true" href="register/">Registrarse</a>
+        </div>
+    {% endif %}
+
+    Página principal en construcción
+
+    </br>
+    Apartados:
+    </br>
+    <a moz-do-not-send="true" href="mascotas">Mascotas</a><br>
+    <a moz-do-not-send="true" href="encuentros">Encuentros</a><br>
+    <a moz-do-not-send="true" href="perdidos">Perdidos</a><br>
+
+{% endblock %}
