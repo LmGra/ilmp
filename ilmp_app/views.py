@@ -31,7 +31,7 @@ class UserCreateView(CreateView):
 #Mascotas
 def creamascota(request):
     if request.method=="POST":
-        var_mascota = MascotasForm(data=request.POST)
+        var_mascota = MascotasForm(request.POST, request.FILES)
         if var_mascota.is_valid():
             print(request.user)
             usuario=User.objects.filter(pk=request.user.id)
@@ -82,12 +82,12 @@ class EncuentrosDetailView(DetailView):
 
 class EncuentrosCreateView(CreateView):
     model = Encuentros
-    fields = ['typeFind', 'infoFind', 'genderFind', 'ubiFind']
+    fields = ['typeFind', 'imgFind', 'infoFind', 'genderFind', 'ubiFind']
     success_url = reverse_lazy('encuentros-list')
 
 class EncuentrosUpdateView(UpdateView):
     model = Encuentros
-    fields = ['typeFind', 'infoFind', 'genderFind', 'ubiFind']
+    fields = ['typeFind', 'imgFind', 'infoFind', 'genderFind', 'ubiFind']
     template_name_sufix = '_update_form'
 
 class EncuentrosDeleteView(DeleteView):

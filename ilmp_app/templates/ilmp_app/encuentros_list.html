@@ -4,8 +4,7 @@
     <h2>Mascotas encontradas</h2>
     <ul>
         {% for encuentro in object_list %}
-        <li><a href={% url 'ecuentros-detail' encuentro.id %}>{{ encuentro.typeFind }}</a>
-            <!--<li>{{ encuentro.typeFind }}</li>-->
+        <li><a href={% url 'encuentros-detail' encuentro.id %}>{{ encuentro.typeFind }}</a>
             <a href="{% url 'encuentros-update' encuentro.id %}"> <button>Modificar</button></a>&nbsp;&nbsp;
             <a href="{% url 'encuentros-delete' encuentro.id %}"> <button>Eliminar</button></a>
         </li>

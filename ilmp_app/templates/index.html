@@ -3,27 +3,165 @@
 
 {% block content %}
 
-    {% if user.is_authenticated %}
-        <div>
-            Logeado como {{user.username}} 
-            <a href="{% url 'logout' %}">Deslogear</a>
-        </div>
-    {% else %}
-        <div>
-            <a href="{% url 'login' %}">Logear</a>
-        </div>
-        <div>
-            <a moz-do-not-send="true" href="register/">Registrarse</a>
-        </div>
-    {% endif %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ILostMyPet</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
 
-    Página principal en construcción
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
 
-    </br>
-    Apartados:
-    </br>
-    <a moz-do-not-send="true" href="mascotas">Mascotas</a><br>
-    <a moz-do-not-send="true" href="encuentros">Encuentros</a><br>
-    <a moz-do-not-send="true" href="perdidos">Perdidos</a><br>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:300;400;600;700;800&display=swap" rel="stylesheet">
 
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="../../static/css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <!---->
+            
+            <div class="sidebar">
+                <div class="sidebar-text d-flex flex-column h-100 justify-content-center text-center">
+                    
+                    {% if request.user.is_authenticated %}
+                        <img class="mx-auto d-block w-75 bg-primary img-fluid rounded-circle mb-4 p-3" src="/media/{{ user.imgUsr }}" alt="Image">
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <h1 class="font-weight-bold">{{user.username}}</h1> 
+                    {% endif %}
+                    <p class="mb-4">
+                    {% if request.user.is_authenticated %}
+                        {{user.birthUsr}}
+                        {{user.telUsr}}
+                        {{user.ubiUsr}}
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <div class="nav-item">
+                            Logeado como {{user.username}}
+                            <p><a href="{% url 'logout' %}">Deslogear</a></p>
+                        </div>
+                    {% else %}
+                        <div class="nav-item">
+                            <a href="{% url 'login' %}">Logear</a>
+                        </div>
+                        <div class="nav-item">
+                            <a moz-do-not-send="true" href="register/">Registrarse</a>
+                        </div>
+                    {% endif %}
+                    </p>
+                    <div class="d-flex justify-content-center mb-5">
+                        <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="sidebar-icon d-flex flex-column h-100 justify-content-center text-right">
+                    <i class="fas fa-2x fa-angle-double-right text-primary"></i>
+                </div>
+            </div>
+            <div class="content">
+                <!-- Navbar Start -->
+                <div class="container p-0">
+                    <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
+                        <a href="" class="navbar-brand d-block d-lg-none">Navigation</a>
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                            <div class="navbar-nav m-auto">
+                                <a moz-do-not-send="true" href="mascotas" class="nav-item nav-link">Mascotas</a>
+                                <a moz-do-not-send="true" href="perdidos" class="nav-item nav-link">Perdidos</a>
+                                <a moz-do-not-send="true" href="encuentros" class="nav-item nav-link">Encuentros</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <!-- Navbar End -->
+                
+                <!-- Carousel Start -->
+                <div class="container p-0">
+                    <div id="blog-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+<!---->                                <img  src="../../media/images/Gato1.png" width="200" height="200" alt="Image"> 
+                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+<!---->                                    <h2 class="mb-3 text-white font-weight-bold">Animal perdido 1</h2>
+                                    <div class="d-flex text-white">
+<!---->                                        <small class="mr-2"><i class="fa fa-calendar-alt"></i>Perdido el 2022-02-02</small> 
+<!---->                                        <small class="mr-2"><i class="fa fa-comments"></i> 15 Comentarios</small> 
+                                    </div>
+<!---->                                    <a href="" class="btn btn-lg btn-outline-light mt-4">Ver</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#blog-carousel" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#blog-carousel" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Carousel End -->
+                
+                
+                <!-- Blog List Start -->
+                <div class="container bg-white pt-5">
+                    <div class="row blog-item px-3 pb-5">
+                        <div class="col-md-5">
+                            <img  class="img-fluid mb-4 mb-md-0" src="../../media/images/Perro1.png" width="200" height="200" alt="Image">
+                        </div>
+                        <div class="col-md-7">
+                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Bobby</h3>
+                            <div class="d-flex mb-3">
+                                <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 2021-01-02</small>
+                                <small class="mr-2 text-muted"><i class="fa fa-comments"></i> 2 Comentarios</small>
+                            </div>
+                            <p>
+                                Ejemplo de descripción del animal perdido
+                            </p>
+                            <a class="btn btn-link p-0" href="">Ver <i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog List End -->
+                
+                
+                <!-- Footer Start -->
+                <div class="container py-4 bg-secondary text-center">
+                    <p class="m-0 text-white">
+                        &copy; <a class="text-white font-weight-bold" href="#">ILostMyPet</a>. All Rights Reserved.
+                    </p>
+                </div>
+                <!-- Footer End -->
+            </div>
+        </div>
+        
+        <!-- Back to Top -->
+        <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="../../static/js/main.js"></script>
+    </body>
+</html>
 {% endblock %}
