@@ -1,6 +1,6 @@
 from django.urls import path
 #from django.conf.urls import include
-from ilmp_app.views import index, UserCreateView, EncuentrosDeleteView, EncuentrosUpdateView, EncuentrosCreateView, PerdidosUpdateView, PerdidosDeleteView, PerdidosCreateView ,MascotasDeleteView, MascotasUpdateView, MascotasCreateView, PerdidosDetailView, EncuentrosDetailView, MascotasDetailView, MascotasListView, EncuentrosListView, PerdidosListView
+from ilmp_app.views import index, listamascota, creamascota, UserCreateView, EncuentrosDeleteView, EncuentrosUpdateView, EncuentrosCreateView, PerdidosUpdateView, PerdidosDeleteView, PerdidosCreateView ,MascotasDeleteView, MascotasUpdateView, PerdidosDetailView, EncuentrosDetailView, MascotasDetailView, EncuentrosListView, PerdidosListView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -8,9 +8,11 @@ urlpatterns = [
     path(r'',index),
     
     #Mascotas
-    path('mascotas/', MascotasListView.as_view(), name='mascotas-list'),
+    path('mascotas/', listamascota, name='mascotas-list'),
+    #path('mascotas/', MascotasListView.as_view(), name='mascotas-list'),
     path('mascotas/<int:pk>/', MascotasDetailView.as_view(), name='mascotas-detail'),
-    path("mascotas/add/", MascotasCreateView.as_view(), name='mascotas-add'),
+    path("mascotas/add/", creamascota, name='mascotas-add'),
+    #path("mascotas/add/", MascotasCreateView.as_view(), name='mascotas-add'),
     path('mascotas/<int:pk>/edit/', MascotasUpdateView.as_view(), name='mascotas-update'),
     path('mascotas/<int:pk>/delete/', MascotasDeleteView.as_view(), name='mascotas-delete'),
     

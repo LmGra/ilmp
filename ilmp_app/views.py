@@ -1,4 +1,11 @@
-from django.shortcuts import render
+#from django.contrib.auth.decorators import login_required
+from ilmp_app.decorators import check_pet_owner
+from django.utils.decorators import method_decorator
+
+from ilmp_app.forms import MascotasForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -22,25 +29,46 @@ class UserCreateView(CreateView):
     success_url = reverse_lazy(index)
 
 #Mascotas
+def creamascota(request):
+    if request.method=="POST":
+        var_mascota = MascotasForm(data=request.POST)
+        if var_mascota.is_valid():
+            print(request.user)
+            usuario=User.objects.filter(pk=request.user.id)
+            #print(usuario.username)
+            mascota=var_mascota.save(commit=False)
+            mascota.usrPet=request.user
+            mascota.save()
+            return redirect('mascotas-list')
+    else:
+        var_mascota=MascotasForm()
+    return render(request,"ilmp_app/mascotas_form.html",{"var_mascota":var_mascota})
 
-class MascotasListView(ListView):
+def listamascota(request):
+    listamascota=Mascotas.objects.filter(usrPet=request.user)
+    return render(request,"ilmp_app/mascotas_list.html",{"listamascota":listamascota})
+
+#class MascotasListView(LoginRequiredMixin,ListView):
+#    model = Mascotas
+
+@method_decorator(check_pet_owner,name='dispatch')
+class MascotasDetailView(LoginRequiredMixin,DetailView):
     model = Mascotas
 
-class MascotasDetailView(DetailView):
-    model = Mascotas
+#class MascotasCreateView(LoginRequiredMixin,CreateView):
+#    model = Mascotas
+#    fields = ['namePet', 'infoPet', 'agePet', 'typePet', 'imgPet', 'genderPet']
+#    success_url = reverse_lazy('mascotas-list')
 
-class MascotasCreateView(CreateView):
+@method_decorator(check_pet_owner,name='dispatch')
+class MascotasUpdateView(LoginRequiredMixin,UpdateView):
     model = Mascotas
-    fields = ['namePet', 'infoPet', 'agePet', 'typePet', 'imgPet', 'genderPet', 'usrPet']
-    success_url = reverse_lazy('mascotas-list')
-
-class MascotasUpdateView(UpdateView):
-    model = Mascotas
-    fields = ['namePet', 'infoPet', 'agePet', 'typePet', 'imgPet', 'genderPet', 'usrPet']
+    fields = ['namePet', 'infoPet', 'agePet', 'typePet', 'imgPet', 'genderPet']
     template_name_sufix = '_update_form'
     success_url = reverse_lazy('mascotas-list')
 
-class MascotasDeleteView(DeleteView):
+@method_decorator(check_pet_owner,name='dispatch')
+class MascotasDeleteView(LoginRequiredMixin,DeleteView):
     model = Mascotas
     success_url = reverse_lazy('mascotas-list')
     

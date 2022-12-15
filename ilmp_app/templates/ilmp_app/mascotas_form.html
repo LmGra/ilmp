@@ -1,5 +1,8 @@
-
-<form enctype="multipart/form-data" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Guardar">
-</form>
+<html>
+    <body>
+        <form enctype="multipart/form-data" method="post">{% csrf_token %}
+            {{ var_mascota.as_p }}
+            <input type="submit" value="Guardar">
+        </form>
+    </body>
+</html>

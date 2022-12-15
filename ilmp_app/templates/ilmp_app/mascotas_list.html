@@ -3,16 +3,20 @@
 
 
 {% block content %}
-    <h2>Mascotas</h2>
+    <h2>Tus Mascotas</h2>
     <ul>
-        {% for mascota in object_list %}
+        {% for mascota in listamascota %}
         <li><a href={% url 'mascotas-detail' mascota.id %}>{{ mascota.namePet }}</a>
             <!--<li>{{ mascota.namePet }}</li> -->
             <a href="{% url 'mascotas-update' mascota.id %}"> <button>Modificar</button></a>&nbsp;&nbsp;
             <a href="{% url 'mascotas-delete' mascota.id %}"> <button>Eliminar</button></a>
             
         </li>
+        {% empty %}
+        <li>Aún no has agregado ninguna mascota.</li>
+
         {% endfor %}
+
         <p><a href="{% url 'mascotas-add' %}"> <button>Añadir Mascota</button></a></p>
     </ul>
 {% endblock %}

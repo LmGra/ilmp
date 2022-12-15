@@ -30,3 +30,8 @@ class NewUserForm(UserCreationForm):
 		if commit:
 			user.save()
 		return user
+
+class MascotasForm(forms.ModelForm):
+	class Meta:
+		model =  Mascotas
+		fields = ['namePet', 'infoPet', 'agePet', 'typePet', 'imgPet', 'genderPet']
