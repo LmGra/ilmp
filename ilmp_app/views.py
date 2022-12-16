@@ -28,7 +28,10 @@ def index(request):
 class UserCreateView(CreateView):
     model = User
     form_class = UserForm
-    success_url = reverse_lazy(index)
+    success_url = reverse_lazy('ilmp:user-list')
+
+class UserListView(ListView):
+    model = User
 
 #Mascotas
 def creamascota(request):
@@ -41,7 +44,7 @@ def creamascota(request):
             mascota=var_mascota.save(commit=False)
             mascota.usrPet=request.user
             mascota.save()
-            return redirect('mascotas-list')
+            return redirect('ilmp:mascotas-list')
     else:
         var_mascota=MascotasForm()
     return render(request,"ilmp_app/mascotas_form.html",{"var_mascota":var_mascota})
@@ -67,12 +70,12 @@ class MascotasUpdateView(LoginRequiredMixin,UpdateView):
     model = Mascotas
     fields = ['namePet', 'infoPet', 'agePet', 'typePet', 'imgPet', 'genderPet']
     template_name_sufix = '_update_form'
-    success_url = reverse_lazy('mascotas-list')
+    success_url = reverse_lazy('ilmp:mascotas-list')
 
 @method_decorator(check_pet_owner,name='dispatch')
 class MascotasDeleteView(LoginRequiredMixin,DeleteView):
     model = Mascotas
-    success_url = reverse_lazy('mascotas-list')
+    success_url = reverse_lazy('ilmp:mascotas-list')
     
 #Encontradas
 
@@ -85,7 +88,7 @@ class EncuentrosDetailView(DetailView):
 class EncuentrosCreateView(CreateView):
     model = Encuentros
     fields = ['typeFind', 'imgFind', 'infoFind', 'genderFind', 'ubiFind']
-    success_url = reverse_lazy('encuentros-list')
+    success_url = reverse_lazy('ilmp:encuentros-list')
 
 class EncuentrosUpdateView(UpdateView):
     model = Encuentros
@@ -94,7 +97,7 @@ class EncuentrosUpdateView(UpdateView):
 
 class EncuentrosDeleteView(DeleteView):
     model = Encuentros
-    success_url = reverse_lazy('encuentros-list')
+    success_url = reverse_lazy('ilmp:encuentros-list')
 
 
 #Perdidos
@@ -107,7 +110,7 @@ class PerdidosDetailView(DetailView):
 class PerdidosCreateView(CreateView):
     model = Perdidos
     fields = ['infoLost', 'dateLost', 'petLost', 'ubiLost']
-    success_url = reverse_lazy('perdidos-list')
+    success_url = reverse_lazy('ilmp:perdidos-list')
 
 class PerdidosUpdateView(UpdateView):
     model = Perdidos
@@ -116,7 +119,7 @@ class PerdidosUpdateView(UpdateView):
 
 class PerdidosDeleteView(DeleteView):
     model = Perdidos
-    success_url = reverse_lazy('perdidos-list')
+    success_url = reverse_lazy('ilmp:perdidos-list')
     
     
 #Buscador

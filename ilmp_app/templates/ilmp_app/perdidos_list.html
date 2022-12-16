@@ -4,11 +4,11 @@
     <h2>Mascotas perdidas</h2>
     <ul>
         {% for perdido in object_list %}
-        <li><a href={% url 'perdidos-detail' perdido.id %}>{{ perdido.petLost }}</a>
-            <a href="{% url 'perdidos-update' perdido.id %}"> <button>Modificar</button></a>&nbsp;&nbsp;
-            <a href="{% url 'perdidos-delete' perdido.id %}"> <button>Eliminar</button></a>
+        <li><a href={% url 'ilmp:perdidos-detail' perdido.id %}>{{ perdido.petLost }}</a>
+            <a href="{% url 'ilmp:perdidos-update' perdido.id %}"> <button>Modificar</button></a>&nbsp;&nbsp;
+            <a href="{% url 'ilmp:perdidos-delete' perdido.id %}"> <button>Eliminar</button></a>
         </li>
         {% endfor %}
-        <p><a href="{% url 'perdidos-add' %}"><button>Añadir</button></a></p>
+        <p><a href="{% url 'ilmp:perdidos-add' %}"><button>Añadir</button></a></p>
     </ul>
 {% endblock %}

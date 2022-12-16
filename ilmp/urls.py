@@ -17,17 +17,21 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 from ilmp_app import views
-
+from ilmp_app.api import router
 
 urlpatterns = [
     #Admin
     path(r'admin/', admin.site.urls),
     
     #Index
-    path(r'', include('ilmp_app.urls')),
+    #path(r'', include('ilmp_app.urls')),
+    path('', include(('ilmp_app.urls','ilmp'),namespace="ilmp")),
     
     #Accounts
     path("accounts/", include("django.contrib.auth.urls")),
     path("register/", views.register_request, name="register"),
     
+    #Api
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

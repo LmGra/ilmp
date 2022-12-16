@@ -1,11 +1,14 @@
 from django.urls import path
 #from django.conf.urls import include
-from ilmp_app.views import index, search, listamascota, creamascota, UserCreateView, EncuentrosDeleteView, EncuentrosUpdateView, EncuentrosCreateView, PerdidosUpdateView, PerdidosDeleteView, PerdidosCreateView ,MascotasDeleteView, MascotasUpdateView, PerdidosDetailView, EncuentrosDetailView, MascotasDetailView, EncuentrosListView, PerdidosListView
+from ilmp_app.views import index,UserListView, search, listamascota, creamascota, UserCreateView, EncuentrosDeleteView, EncuentrosUpdateView, EncuentrosCreateView, PerdidosUpdateView, PerdidosDeleteView, PerdidosCreateView ,MascotasDeleteView, MascotasUpdateView, PerdidosDetailView, EncuentrosDetailView, MascotasDetailView, EncuentrosListView, PerdidosListView
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path(r'',index),
+    
+    #Usuario
+    path('user/', UserListView.as_view(), name='user-list'),
     
     #Mascotas
     path('mascotas/', listamascota, name='mascotas-list'),
