@@ -9,6 +9,15 @@ GENDER_CHOICES = (
     ('F', 'Female'),
 )
 
+TYPE_CHOICES = (
+    ('Perro', 'Perro'),
+    ('Gato', 'Gato'),
+    ('Reptil', 'Reptil'),
+    ('Ave', 'Ave'),
+    ('Roedor', 'Roedor'),
+    ('Dinosaurio', 'Dinosaurio'),
+)
+
 #Usuarios
 class User(AbstractUser):
     
@@ -29,7 +38,7 @@ class Mascotas(models.Model):
     namePet = models.CharField(max_length=200)
     infoPet = models.CharField(max_length=200)
     agePet = models.DateField(blank=True, null=True)
-    typePet = models.CharField(max_length=200)
+    typePet = models.CharField(max_length=10, choices=TYPE_CHOICES, blank=False)
     imgPet = models.ImageField(null=True, blank=True, upload_to="images/")
     genderPet = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     #usrPet = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -50,7 +59,7 @@ class Perdidos(models.Model):
         return self.infoLost
     
 class Encuentros(models.Model):
-    typeFind = models.CharField(max_length=200)
+    typeFind = models.CharField(max_length=10, choices=TYPE_CHOICES, blank=False)
     imgFind = models.ImageField(null=True, blank=True, upload_to="images/")
     infoFind = models.CharField(max_length=200)
     genderFind = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)

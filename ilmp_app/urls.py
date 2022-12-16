@@ -1,6 +1,6 @@
 from django.urls import path
 #from django.conf.urls import include
-from ilmp_app.views import index, listamascota, creamascota, UserCreateView, EncuentrosDeleteView, EncuentrosUpdateView, EncuentrosCreateView, PerdidosUpdateView, PerdidosDeleteView, PerdidosCreateView ,MascotasDeleteView, MascotasUpdateView, PerdidosDetailView, EncuentrosDetailView, MascotasDetailView, EncuentrosListView, PerdidosListView
+from ilmp_app.views import index, search, listamascota, creamascota, UserCreateView, EncuentrosDeleteView, EncuentrosUpdateView, EncuentrosCreateView, PerdidosUpdateView, PerdidosDeleteView, PerdidosCreateView ,MascotasDeleteView, MascotasUpdateView, PerdidosDetailView, EncuentrosDetailView, MascotasDetailView, EncuentrosListView, PerdidosListView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -30,7 +30,11 @@ urlpatterns = [
     path('perdidos/<int:pk>/edit/', PerdidosUpdateView.as_view(), name='perdidos-update'),
     path('perdidos/<int:pk>/delete/', PerdidosDeleteView.as_view(), name='perdidos-delete'),
     
+    #Registro
     path("register/", UserCreateView.as_view(), name='user-add'),
+    
+    #Search
+    path('gimnasio/search/', search.as_view(), name="search"),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

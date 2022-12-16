@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for contenido in object_list %}
+    <a href={% url 'perdidos-detail' contenido.id %}>{{ contenido.petLost }}</a>
+{%endfor%}
+
+
+{% endblock %}

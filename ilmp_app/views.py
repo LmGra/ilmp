@@ -1,4 +1,6 @@
 #from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+
 from ilmp_app.decorators import check_pet_owner
 from django.utils.decorators import method_decorator
 
@@ -94,8 +96,8 @@ class EncuentrosDeleteView(DeleteView):
     model = Encuentros
     success_url = reverse_lazy('encuentros-list')
 
-#Buscadas
 
+#Perdidos
 class PerdidosListView(ListView):
     model = Perdidos
 
@@ -115,6 +117,16 @@ class PerdidosUpdateView(UpdateView):
 class PerdidosDeleteView(DeleteView):
     model = Perdidos
     success_url = reverse_lazy('perdidos-list')
+    
+    
+#Buscador
+class search(ListView):
+    model = Perdidos
+    template_name="search.html"
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list=Perdidos.objects.filter(Q(petLost__in=[query]))
+        return object_list
     
 #RegisterRequest
 def register_request(request):

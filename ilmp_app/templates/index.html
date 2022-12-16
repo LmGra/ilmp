@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+
 
 {% block content %}
 
@@ -82,6 +82,13 @@
                                 <a moz-do-not-send="true" href="mascotas" class="nav-item nav-link">Mascotas</a>
                                 <a moz-do-not-send="true" href="perdidos" class="nav-item nav-link">Perdidos</a>
                                 <a moz-do-not-send="true" href="encuentros" class="nav-item nav-link">Encuentros</a>
+                                <!--Buscador aquí-->
+
+                                <form action="{% url 'search' %}" method="get">
+                                    <input name="q" type="text" placeholder="Search...">
+                                </form>
+
+
                             </div>
                         </div>
                     </nav>
