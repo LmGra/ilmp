@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block content %}
 
@@ -34,6 +34,8 @@
                     
                     {% if request.user.is_authenticated %}
                         <img class="mx-auto d-block w-75 bg-primary img-fluid rounded-circle mb-4 p-3" src="/media/{{ user.imgUsr }}" alt="Image">
+                    {%else%}
+                        <img  class="mx-auto d-block w-75 bg-primary img-fluid rounded-circle mb-4 p-3" src="{% static 'ilmp_app/assets/img/default/silueta.jpg' %}" width="200" height="200" alt="Image">
                     {% endif %}
                     {% if request.user.is_authenticated %}
                         <h1 class="font-weight-bold">{{user.username}}</h1> 
@@ -100,7 +102,7 @@
                     <div id="blog-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-<!---->                                <img  src="../../media/images/Gato1.png" width="200" height="200" alt="Image"> 
+<!---->                                <img  src="{% static 'ilmp_app/assets/img/default/gato.jpg' %}" width="200" height="200" alt="Image"> 
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
 <!---->                                    <h2 class="mb-3 text-white font-weight-bold">Animal perdido 1</h2>
                                     <div class="d-flex text-white">
@@ -126,13 +128,13 @@
                 <div class="container bg-white pt-5">
                     <div class="row blog-item px-3 pb-5">
                         <div class="col-md-5">
-                            <img  class="img-fluid mb-4 mb-md-0" src="../../media/images/Perro1.png" width="200" height="200" alt="Image">
+                            <img  class="img-fluid mb-4 mb-md-0" src="{% static 'ilmp_app/assets/img/default/gato.jpg' %}" width="200" height="200" alt="Image">
                         </div>
                         <div class="col-md-7">
-                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Bobby</h3>
+                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Animal perdido 1</h3>
                             <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 2021-01-02</small>
-                                <small class="mr-2 text-muted"><i class="fa fa-comments"></i> 2 Comentarios</small>
+                                <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> Perdido el 2022-02-02</small>
+                                <small class="mr-2 text-muted"><i class="fa fa-comments"></i> 15 Comentarios</small>
                             </div>
                             <p>
                                 Ejemplo de descripción del animal perdido
