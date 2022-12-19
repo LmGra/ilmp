@@ -1,7 +1,7 @@
 #from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-from ilmp_app.decorators import check_pet_owner
+from ilmp_app.decorator import check_pet_owner, check_lost_owner
 from django.utils.decorators import method_decorator
 
 from ilmp_app.forms import MascotasForm
@@ -69,7 +69,7 @@ class MascotasDetailView(LoginRequiredMixin,DetailView):
 class MascotasUpdateView(LoginRequiredMixin,UpdateView):
     model = Mascotas
     fields = ['namePet', 'infoPet', 'agePet', 'typePet', 'imgPet', 'genderPet']
-    template_name_sufix = '_update_form'
+    template_name_suffix = '_update_form'
     success_url = reverse_lazy('ilmp:mascotas-list')
 
 @method_decorator(check_pet_owner,name='dispatch')
@@ -112,11 +112,13 @@ class PerdidosCreateView(CreateView):
     fields = ['infoLost', 'dateLost', 'petLost', 'ubiLost']
     success_url = reverse_lazy('ilmp:perdidos-list')
 
+@method_decorator(check_lost_owner,name='dispatch')
 class PerdidosUpdateView(UpdateView):
     model = Perdidos
     fields = ['infoLost', 'dateLost', 'petLost', 'ubiLost']
     template_name_sufix = '_update_form'
 
+@method_decorator(check_lost_owner,name='dispatch')
 class PerdidosDeleteView(DeleteView):
     model = Perdidos
     success_url = reverse_lazy('ilmp:perdidos-list')

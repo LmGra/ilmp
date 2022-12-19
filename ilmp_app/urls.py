@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path(r'',index),
+    path(r'',index, name ='index'),
     
     #Usuario
     path('user/', UserListView.as_view(), name='user-list'),

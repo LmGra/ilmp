@@ -23,7 +23,7 @@ class User(AbstractUser):
     
     nameUsr = models.CharField(max_length=200)
     genderUsr = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
-    birthUsr = models.DateField(null=True)
+    birthUsr = models.DateField(null=True, blank=True)
     telUsr= models.CharField(max_length = 9)
     imgUsr = models.ImageField(null=True, blank=True, upload_to="images/")
     ubiUsr = models.CharField(max_length=200)
