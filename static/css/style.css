@@ -9788,7 +9788,7 @@ h3 {
   }
 
   .wrapper .content {
-    width: calc(100% - 350px);
+    /*width: calc(100% - 350px);/**/
     margin-left: 350px;
   }
 }
