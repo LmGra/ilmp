@@ -1,7 +1,7 @@
 #from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-from ilmp_app.decorator import check_pet_owner, check_lost_owner
+from ilmp_app.decorator import check_pet_owner, check_lost_owner, check_find_owner
 from django.utils.decorators import method_decorator
 
 from ilmp_app.forms import MascotasForm
@@ -90,11 +90,13 @@ class EncuentrosCreateView(CreateView):
     fields = ['typeFind', 'imgFind', 'infoFind', 'genderFind', 'ubiFind']
     success_url = reverse_lazy('ilmp:encuentros-list')
 
+@method_decorator(check_find_owner,name='dispatch')
 class EncuentrosUpdateView(UpdateView):
     model = Encuentros
     fields = ['typeFind', 'imgFind', 'infoFind', 'genderFind', 'ubiFind']
     template_name_sufix = '_update_form'
 
+@method_decorator(check_find_owner,name='dispatch')
 class EncuentrosDeleteView(DeleteView):
     model = Encuentros
     success_url = reverse_lazy('ilmp:encuentros-list')
