@@ -4,7 +4,7 @@ from django.db.models import Q
 from ilmp_app.decorator import check_pet_owner, check_lost_owner, check_find_owner
 from django.utils.decorators import method_decorator
 
-from ilmp_app.forms import MascotasForm
+from ilmp_app.forms import MascotasForm, PerdidosForm, EncuentrosForm, CorreoForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.shortcuts import render, get_object_or_404
@@ -12,7 +12,7 @@ from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from ilmp_app.models import User ,Mascotas, Encuentros, Perdidos
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from .forms import NewUserForm
 from django.shortcuts import render, redirect
@@ -85,10 +85,23 @@ class EncuentrosListView(ListView):
 class EncuentrosDetailView(DetailView):
     model = Encuentros
 
-class EncuentrosCreateView(CreateView):
-    model = Encuentros
-    fields = ['typeFind', 'imgFind', 'infoFind', 'genderFind', 'ubiFind']
-    success_url = reverse_lazy('ilmp:encuentros-list')
+#class EncuentrosCreateView(CreateView):
+#    model = Encuentros
+#    fields = ['typeFind', 'imgFind', 'infoFind', 'genderFind', 'ubiFind']
+#    success_url = reverse_lazy('ilmp:encuentros-list')
+
+def createEncuentros(request):
+    if request.method == "POST":
+        encuentros_form = EncuentrosForm(data=request.POST, files=request.FILES)
+        if encuentros_form.is_valid():
+            encuentros = encuentros_form.save(commit=False)
+            encuentros.usrLost = request.user
+            encuentros.save()
+            return redirect('ilmp:encuentros-list')
+    else:
+        encuentros_form = EncuentrosForm()
+        
+    return render(request, "ilmp_app/encuentros_form.html", {"encuentros_form":encuentros_form})
 
 @method_decorator(check_find_owner,name='dispatch')
 class EncuentrosUpdateView(UpdateView):
@@ -109,10 +122,53 @@ class PerdidosListView(ListView):
 class PerdidosDetailView(DetailView):
     model = Perdidos
 
-class PerdidosCreateView(CreateView):
-    model = Perdidos
-    fields = ['infoLost', 'dateLost', 'petLost', 'ubiLost']
-    success_url = reverse_lazy('ilmp:perdidos-list')
+def creaperdidos(request):
+    #var_perdidos = PerdidosForm()
+    var_ownpet = Mascotas.objects.filter(usrPet=request.user)
+    if request.method=="POST":
+        var_perdidos = PerdidosForm(request.POST)
+        print(request.POST)
+        #var_mascota=Mascotas.objects.get(pk=request.POST.get('pet'))
+        #var_perdidos.petLost=var_mascota
+       
+        #var_perdidos.__setattr__("petLost",request.POST.get('pet',''))
+        if var_perdidos.is_valid():
+            form = var_perdidos.save(commit=False)
+            print("AAAA")
+            var_mascota=Mascotas.objects.get(pk=request.POST.get('pet'))
+            #var_petlost = Perdidos.objects.create()
+            #var_petlost.infoLost=request.POST.get('infoLost','')
+            #var_petlost.dateLost=request.POST.get('dateLost','')
+            form.petLost=var_mascota
+            print(form.petLost, form.infoLost, form.dateLost, form.ubiLost)
+            form.save()
+            #var_petlost.ubiLost=request.POST.get('ubiLost','')
+            return redirect(reverse('ilmp:perdidos-list'))
+    else:
+        var_perdidos = PerdidosForm()
+    return render(request,"ilmp_app/perdidos_form.html",{'var_perdidos':var_perdidos,'ownpet':var_ownpet})
+        
+#def creaperdidos(request):
+#    if request.method=="POST":
+#        var_perdidos = PerdidosForm(request.POST)
+#        if var_perdidos.is_valid():
+#            print(request.user)
+#            usuario=User.objects.filter(pk=request.user.id)
+#            #print(usuario.username)
+#            perdidos=var_perdidos.save(commit=False)
+#            perdidos.petLost.usrPet=request.user
+#            perdidos.save()
+#            return redirect('ilmp:perdidos-list')
+#    else:
+#        var_perdidos=PerdidosForm()
+#    return render(request,"ilmp_app/perdidos_form.html",{"var_perdidos":var_perdidos})
+
+
+
+#class PerdidosCreateView(CreateView):
+#    model = Perdidos
+#    fields = ['infoLost', 'dateLost', 'petLost', 'ubiLost']
+#    success_url = reverse_lazy('ilmp:perdidos-list')
 
 @method_decorator(check_lost_owner,name='dispatch')
 class PerdidosUpdateView(UpdateView):
@@ -125,6 +181,25 @@ class PerdidosDeleteView(DeleteView):
     model = Perdidos
     success_url = reverse_lazy('ilmp:perdidos-list')
     
+    
+#Correo
+def createCorreo(request,pk):
+    if request.method == "POST":
+        correo_form = CorreoForm(data=request.POST)
+        if correo_form.is_valid():
+            correo = correo_form.save(commit=False)
+            correo.remitente = request.user
+            correo.destinatario = User.objects.get(pk=pk)
+            correo.save()
+            return redirect('ilmp:encuentros-list')
+    else:
+        correo_form = CorreoForm()
+        
+    return render(request, "ilmp_app/correo_form.html", {"correo_form":correo_form})
+
+
+
+
     
 #Buscador
 class search(ListView):

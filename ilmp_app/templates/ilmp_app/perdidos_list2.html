@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+               <!-- Blog List Start -->
+               <div class="container bg-backblue pt-5">
+                <div class="row blog-item px-3 pb-5">
+                    <div class="col-md-12">
+                        
+
+                        <h2 align="center" class="font-weight-bold">Listado de mascotas perdidas</h2>
+                        <br>
+                        {% if request.user.is_authenticated %}
+                        <h5 align="center" class="font-weight-bold"><a href="{% url 'ilmp:perdidos-add' %}">Añadir mascota desaparecida</a></h5>
+                        
+                        {% endif %}
+                        
+
+                         
+
+
+
+    <ul>
+        {% for perdido in object_list %}
+
+        <!-- Blog List Start -->
+        <table>
+            <div class="container bg-backblue pt-2">
+                <div class="row blog-item bg-blue px-3 pb-4 pt-4">
+                    <div class="col-md-5">
+                        <img width="300" height="300" alt="Image" class="img-fluid mb-4 mb-md-0" src="/media/{{ perdido.petLost.imgPet }}"> 
+                    </div>
+                    <div class="col-md-7">
+                        <h4 class=" font-weight-bold"><br>{{perdido.petLost }}</h4>
+                        <div class="d-flex mb-3">
+                            <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> Perdido el 2022-02-02</small>
+                            <small class="mr-2 text-muted"><i class="fa fa-comments"></i> 15 Comentarios</small>
+                        </div>
+                        <p>
+                            Tipo: {{ perdido.petLost.typePet }}
+                        </p>
+                        <p>
+                            Información: {{ perdido.infoLost }}
+                        </p>
+                        <p>
+                            Ubicación: {{ perdido.ubiLost }}
+                        </p>
+                        <a class="btn btn-link p-0" href={% url 'ilmp:perdidos-detail' perdido.id %}>Ver más <i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </table>
+        <!-- Blog List End -->
+
+        {% endfor %}
+
+
+
+    </ul>
+</ul>
+</p>
+</div>
+</div>
+</div>
+<!-- Blog List End -->
+
+
+{% endblock %}
+

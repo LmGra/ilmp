@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<br>
+
+<p>Nombre del usuario: {{ object.username }}</p>
+
+<p>Foto de perfil:<br> <img src="/media/{{ object.imgUser }}"></p>
+
+<p>Teléfono de contacto : {{ object.tlfUser }}</p>
+
+<p>Dirección: <br> {{ object.ubiUser }} </p>
+
+<p>Contactar</p>
+
+
+<br>
+
+{% endblock %}

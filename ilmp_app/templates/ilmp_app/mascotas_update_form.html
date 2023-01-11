@@ -3,61 +3,20 @@
 
 
 {% block content %}
-<div class="wrapper">
-    <!---->
-    
-    <div class="content">
-        <!-- Navbar Start -->
-        <div class="container p-0">
-            <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav m-auto">
-                        <a moz-do-not-send="true" href="{% url 'ilmp:index' %}" class="nav-item nav-link">Inicio</a>
-                        {% if request.user.is_authenticated %}
-                        <a moz-do-not-send="true" href="{% url 'ilmp:mascotas-list' %}" class="nav-item nav-link">Mascotas</a>
-                        {% endif %}
-                        <a moz-do-not-send="true" href="{% url 'ilmp:perdidos-list' %}" class="nav-item nav-link">Perdidos</a>
-                        <a moz-do-not-send="true" href="{% url 'ilmp:encuentros-list' %}" class="nav-item nav-link">Encuentros</a>
-                        <div class="nav-item">
-                            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<!---->
-                        </div>
-                        {% if user.is_authenticated %}
-                            <div class="nav-item">
-                                Logeado como {{user.username}}
-                                <br>
-                                <a href="{% url 'logout' %}"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deslogear</a>
-                            </div>
-                        {% else %}
-                            <div class="nav-item">
-                                <a href="{% url 'login' %}">&nbsp;&nbsp;&nbsp;Logear</a>
-                                <br>
-                                <a href="{% url 'ilmp:user-add' %}">Registrarse</a>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </nav>
-        </div>
+
+<br>
+<h2 style="text-align:center" class="font-weight-bold">Información de {{ object.namePet }}</h2>
 <br>
 
-
-<form enctype="multipart/form-data" method="post">{% csrf_token %}
+<form style="text-align:center" enctype="multipart/form-data" method="post">{% csrf_token %}
+    <img width="300" height="300" alt="Image" class="img-fluid mb-4 mb-md-0" src="/media/{{ object.imgPet }}">
+    <br><br>
     {{ form.as_p }}
     <input type="submit" value="Modificar">
+    <br><br>
+  
 </form>
 <br><br>
-
-            <!-- Footer Start -->
-            <div class="container py-4 bg-secondary text-center">
-                <p class="m-0 text-white">
-                    &copy; <a class="text-white font-weight-bold" href="#">ILostMyPet</a>. All Rights Reserved.
-                </p>
-            </div>
-            <!-- Footer End -->
-
 
 {% endblock %}
 

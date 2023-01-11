@@ -4,107 +4,61 @@
 
 {% block content %}
 
-<div class="wrapper">
-    <!---->
-    
-    <div class="content">
-        <!-- Navbar Start -->
-        <div class="container p-0">
-            <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav m-auto">
-                        <a moz-do-not-send="true" href="{% url 'ilmp:index' %}" class="nav-item nav-link">Inicio</a>
-                        {% if request.user.is_authenticated %}
-                            <a moz-do-not-send="true" href="{% url 'ilmp:mascotas-list' %}" class="nav-item nav-link">Mascotas</a>
-                        {% endif %}
-                        <a moz-do-not-send="true" href="{% url 'ilmp:perdidos-list' %}" class="nav-item nav-link">Perdidos</a>
-                        <a moz-do-not-send="true" href="{% url 'ilmp:encuentros-list' %}" class="nav-item nav-link">Encuentros</a>
-                        <div class="nav-item">
-                            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<!---->
-                        </div>
-                        {% if user.is_authenticated %}
-                            <div class="nav-item">
-                                Logeado como {{user.username}}
-                                <br>
-                                <a href="{% url 'logout' %}"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deslogear</a>
-                            </div>
-                        {% else %}
-                            <div class="nav-item">
-                                <a href="{% url 'login' %}">&nbsp;&nbsp;&nbsp;Logear</a>
-                                <br>
-                                <a href="{% url 'ilmp:user-add' %}">Registrarse</a>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </nav>
-        </div>
-        
-<!--
-<div class="sidebar">
-    <div class="sidebar-text d-flex flex-column h-100 justify-content-center text-center">
-        <h2>Tus Mascotas</h2>
-        <ul>
-            {% for mascota in listamascota %}
-            <li><a href={% url 'ilmp:mascotas-detail' mascota.id %}>{{ mascota.namePet }}</a>
-            -->    <!--<li>{{ mascota.namePet }}</li> --><!--
-                <a href="{% url 'ilmp:mascotas-update' mascota.id %}"> <button>Modificar</button></a>&nbsp;&nbsp;
-                <a href="{% url 'ilmp:mascotas-delete' mascota.id %}"> <button>Eliminar</button></a>
-                
-            </li>
-            {% empty %}
-            <li>Aún no has agregado ninguna mascota.</li>
-
-            {% endfor %}
-
-            <p><a href="{% url 'ilmp:mascotas-add' %}"> <button>Añadir Mascota</button></a></p>
-            <p><a href="{% url 'ilmp:index' %}"> <button>Volver</button></a></p>
-        </ul>
-    </div>
-</div>
--->
                <!-- Blog List Start -->
-               <div class="container bg-white pt-5">
+               <div class="container bg-backblue pt-5">
                 <div class="row blog-item px-3 pb-5">
                     <div class="col-md-12">
-                        <h3 align="center">Tus Mascotas</h3>
-                        <p>
+                        <h2 align="center" class="font-weight-bold">Tus Mascotas</h2>
+                        <br>
+                        {% if request.user.is_authenticated %}
+                        <h5 align="center" class="font-weight-bold"><a href="{% url 'ilmp:mascotas-add' %}">Añadir mascota</a></h5>
+                        
+                        {% endif %}
+                        
+                        
+
+               <!-- Blog List Start -->
 
                             <ul>
                                 {% for mascota in listamascota %}
-
-                                <p><img align="center" width="100px" height="100px" src="/media/{{ mascota.imgPet }}">
-                                    {{ mascota.infoPet }}</p>
-                                &nbsp;&nbsp;&nbsp;<a href={% url 'ilmp:mascotas-detail' mascota.id %}>{{ mascota.namePet }}</a>
-                                &nbsp;&nbsp;&nbsp;   <br><a href="{% url 'ilmp:mascotas-update' mascota.id %}"> <button>&nbsp;Modificar&nbsp;</button></a>
-                                &nbsp;&nbsp;&nbsp;   <br><a href="{% url 'ilmp:mascotas-delete' mascota.id %}"> <button>&nbsp;&nbsp;Eliminar&nbsp;&nbsp;</button></a>
-                                <br><br>
-                                
-                                {% empty %}
-                                    <li>Aún no has agregado ninguna mascota.</li>
-                                {% endfor %}
-                            <br><br>
-                            <p><a href="{% url 'ilmp:mascotas-add' %}"> <button>Añadir Mascota</button></a></p>
-                        </ul>
+                                <!-- Blog List Start -->
+        <table>
+            <div class="container bg-backblue pt-2">
+                <div class="row blog-item bg-blue px-3 pb-4 pt-4">
+                    <div class="col-md-5">
+                        <a href="{% url 'ilmp:mascotas-update' mascota.id %}"><img width="300" height="300" alt="Image" class="img-fluid mb-4 mb-md-0" src="/media/{{ mascota.imgPet }}"> 
+                            </a>
+                        </div>
+                    <div class="col-md-7">
+                        <h4 class=" font-weight-bold"><br>{{ mascota.namePet }}</h4>
+                        <br>
+                        <p>
+                            Tipo: {{ mascota.typePet }}
                         </p>
-                    </div>
+                        <p>
+                            Información: {{ mascota.infoPet }}
+                        </p>
+                        <p>
+                            Género: {{ mascota.genderPet }}
+                        </p>
+                        <p>
+                            Edad: {{ mascota.agePet }}
+                        </p>
+                        <p>
+                            <a href="{% url 'ilmp:mascotas-update' mascota.id %}">Modificar</a>
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="{% url 'ilmp:mascotas-delete' mascota.id %}">Eliminar</a>
+                        </p>
+                    
                 </div>
             </div>
-            <!-- Blog List End -->
-            
-            
-            <!-- Footer Start -->
-            <div class="container py-4 bg-secondary text-center">
-                <p class="m-0 text-white">
-                    &copy; <a class="text-white font-weight-bold" href="#">ILostMyPet</a>. All Rights Reserved.
-                </p>
-            </div>
-            <!-- Footer End -->
-
-
+                                
+            {% empty %}
+                <li>Aún no has agregado ninguna mascota.</li>
+            {% endfor %}
+        <br>
+        </table>
+    </ul>
 {% endblock %}
 
 

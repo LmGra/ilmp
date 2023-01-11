@@ -1,6 +1,8 @@
 from .models import *
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.admin.widgets import AdminDateWidget
+from django.forms.fields import DateField
 
 
 class ContactForm(forms.Form):
@@ -10,6 +12,9 @@ class ContactForm(forms.Form):
     def send_email(self):
         # send email using the self.cleaned_data dictionary
         pass
+
+class DateInput(forms.DateInput):
+	input_type = 'date'
 
 class UserForm(UserCreationForm):
     class Meta:
@@ -35,3 +40,26 @@ class MascotasForm(forms.ModelForm):
 	class Meta:
 		model =  Mascotas
 		fields = ['namePet', 'infoPet', 'agePet', 'typePet', 'imgPet', 'genderPet']
+		widgets = {'agePet' : DateInput()}
+
+#class PerdidosForm(forms.Form):
+#	infoLost=forms.CharField(label="Descripción",required=True)
+#	dateLost=forms.DateField(label="Fecha de desaparición",required=True)
+#	ubiLost=forms.CharField(label="Ubicación de pérdida",required=True)
+	
+class PerdidosForm(forms.ModelForm):
+	class Meta:
+		model = Perdidos
+		fields = ['infoLost', 'dateLost', 'ubiLost']
+		widgets = {'dateLost' : DateInput()}
+
+class EncuentrosForm(forms.ModelForm):
+    class Meta:
+        model = Encuentros
+        fields = ['typeFind', 'imgFind', 'infoFind', 'genderFind', 'ubiFind']
+           
+class CorreoForm(forms.ModelForm):
+    class Meta:
+        model = Correo
+        fields = ['asunto', 'mensaje']
+        

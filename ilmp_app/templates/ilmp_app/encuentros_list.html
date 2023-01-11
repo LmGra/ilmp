@@ -1,8 +1,35 @@
-{% extends 'base.html' %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
+</head>
+
+<head>
+    <meta charset="utf-8">
+    <title>ILostMyPet</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free Website Template" name="keywords">
+    <meta content="Free Website Template" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../../../static/css/style.css" rel="stylesheet">
+</head>
 {% load static %}
 
-
-{% block content %}
 
 <div class="wrapper">
     <!---->
@@ -11,6 +38,7 @@
         <!-- Navbar Start -->
         <div class="container p-0">
             <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
+                <a href="" class="navbar-brand d-block d-lg-none">Navigation</a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,7 +63,7 @@
                             <div class="nav-item">
                                 <a href="{% url 'login' %}">&nbsp;&nbsp;&nbsp;Logear</a>
                                 <br>
-                                <a href="{% url 'ilmp:user-add' %}">Registrarse</a>
+                                <a href="{% url 'register' %}">Registrarse</a>
                             </div>
                         {% endif %}
                     </div>
@@ -43,41 +71,91 @@
             </nav>
         </div>
 
+
+{% block content %}
+
+
 <!-- Blog List Start -->
-<div class="container bg-white pt-5">
+<div class="container bg-backblue pt-5">
     <div class="row blog-item px-3 pb-5">
         <div class="col-md-12">
-
-    <h3 align="center">Mascotas encontradas</h3>
-    <ul>
-        <br>
-        {% for encuentro in object_list %}
-        <li><a href={% url 'ilmp:encuentros-detail' encuentro.id %}>{{ encuentro.typeFind }}</a>
+            <h2 align="center" class="font-weight-bold">Listado de mascotas encontradas</h2>
+            <br>
             {% if request.user.is_authenticated %}
-                <a href="{% url 'ilmp:encuentros-update' encuentro.id %}"> <button>Modificar</button></a>&nbsp;&nbsp;
-                <a href="{% url 'ilmp:encuentros-delete' encuentro.id %}"> <button>Eliminar</button></a>
+            <h5 align="center" class="font-weight-bold"><a href="{% url 'ilmp:encuentros-add' %}">Añadir mascota encontrada</a></h5>
             {% endif %}
-        </li>
+         </div>
+    </div>
+</div>             
+<ul>
+    
+
+    <!-- -->
+    <table style="text-align:center" id="dt-cell-sellection" class="table" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th style="text-align:center" class="th-sm">Contactar
+            </th>
+            <th style="text-align:center" class="th-sm">Imagen
+            </th>
+            <th style="text-align:center" class="th-sm">Información
+            </th>
+            <th style="text-align:center" class="th-sm">Tipo
+            </th>
+            <th style="text-align:center" class="th-sm">Ubicación
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for encuentro in object_list %}
+          <tr>
+            <td><br><br><br><br>{{encuentro.usrLost }}</td>
+            <td><img width="160" height="160" alt="Image" class="img-fluid mb-4 mb-md-0" src="/media/{{ encuentro.imgFind }}"></td>
+            <td halign="center" valign="center"><br><br><br><br>{{ encuentro.infoFind }}</td>
+            <td><br><br><br><br>{{ encuentro.typeFind}}</td>
+            <td><br><br><br><br>{{ encuentro.ubiFind }}</td>
+          </tr>
         {% endfor %}
-        {% if request.user.is_authenticated %}
-            <p><a href="{% url 'ilmp:encuentros-add' %}"> <button>Añadir</button></a></p>
-        {% endif %}
-        <p><a href="{% url 'ilmp:index' %}"> <button>Volver</button></a></p>
-    </ul>
-
-
-</div>
-</div>
-</div>
-
-
-                <!-- Footer Start -->
-                <div class="container py-4 bg-secondary text-center">
-                    <p class="m-0 text-white">
-                        &copy; <a class="text-white font-weight-bold" href="#">ILostMyPet</a>. All Rights Reserved.
-                    </p>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th style="text-align:center">Contactar
+            </th>
+            <th style="text-align:center">Imagen
+            </th>
+            <th style="text-align:center">Información
+            </th>
+            <th style="text-align:center">Tipo
+            </th>
+            <th style="text-align:center">Ubicación
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+                      <!-- Footer Start -->
+                      <div class="container py-4 bg-secondary text-center">
+                        <p class="m-0 text-white">
+                            &copy; <a class="text-white font-weight-bold" href="#">ILostMyPet</a>. All Rights Reserved.
+                        </p>
+                    </div>
+                    <!-- Footer End -->
                 </div>
-                <!-- Footer End -->
+            </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function () {
+        $('#dt-cell-sellection').dataTable({
+      
+          select: {
+            style: 'os',
+            items: 'cell'
+          }
+        });
+      });
+  </script>
+
 {% endblock %}
 
 

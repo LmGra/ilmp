@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<br>
+<h2 align="center" class="font-weight-bold">Correo</h2>
+<br>
+<h6 align="center" >Envia Cosas correo</h6>
+
+<form style="text-align:center" enctype="multipart/form-data" method="post">{% csrf_token %}
+    <br>
+    {{ correo_form.as_p }}
+    <input type="submit" value="Guardar">
+    <br><br>
+</form>
+
+
+{% endblock %}
