@@ -470,8 +470,7 @@ mark,
 
 .img-fluid {
   max-width: 100%;
-  height: auto;
-}
+  }
 
 .img-thumbnail {
   padding: 0.25rem;
@@ -5843,6 +5842,12 @@ button.bg-dark:focus {
 
 .bg-white {
   background-color: #fff !important;
+}
+.bg-blue {
+  background-color: #ECFCF6 !important;
+}
+.bg-backblue {
+  background-color: #F4FCF6 !important;
 }
 
 .bg-transparent {
