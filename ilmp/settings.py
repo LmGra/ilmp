@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-@d07-(+ml$8l8$=t28thp)7_pd6ngk_13!okiv2@z-5e6k74j0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'ilmp_app.User'
 
@@ -57,6 +57,75 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ilmp.urls'
 
+#############LDAP###########
+
+import ldap
+from django_auth_ldap.config import LDAPSearch
+
+
+# Baseline configuration.
+AUTH_LDAP_SERVER_URI = "ldap://127.0.0.1:1389"
+
+AUTH_LDAP_BIND_DN = "cn=admin,dc=example,dc=org"
+
+
+
+
+AUTH_LDAP_BIND_PASSWORD = "adminpassword"
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+    "ou=users,dc=example,dc=org", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
+)
+
+#AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+#    "ou=django,ou=groups,dc=example,dc=org",
+#    ldap.SCOPE_SUBTREE,
+#    "(objectClass=groupOfNames)",
+#)
+# Populate the Django user from the LDAP directory.
+
+
+
+AUTH_LDAP_USER_ATTR_MAP = {
+    "email": "mail",
+}
+
+AUTHENTICATION_BACKENDS = (
+    "django_auth_ldap.backend.LDAPBackend",
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+
+#import ldap
+#from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+
+
+# Baseline configuration.
+#AUTH_LDAP_SERVER_URI = "ldap://ldap.ilmpapp.duckdns.org"
+
+#AUTH_LDAP_BIND_DN = "cn=django,dc=example,dc=org"
+#AUTH_LDAP_BIND_PASSWORD = "phlebotinum"
+#AUTH_LDAP_USER_SEARCH = LDAPSearch(
+#    "ou=users,dc=example,dc=org", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
+#)
+
+# Set up the basic group parameters.
+#AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+#    "ou=django,ou=groups,dc=example,dc=org",
+#    ldap.SCOPE_SUBTREE,
+#    "(objectClass=groupOfNames)",
+#)
+#AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr="cn")
+
+#AUTHENTICATION_BACKENDS = (
+#    "django_auth_ldap.backend.LDAPBackend",
+#    "django.contrib.auth.backends.ModelBackend",
+#)
+
+
+
+
+############################
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -81,8 +150,22 @@ WSGI_APPLICATION = 'ilmp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
+#	'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#	'NAME': 'ilmp',
+#	'USER': 'ilmpuser',
+#	'PASSWORD': 'ilmpuser',
+#	'HOST': 'localhost',
+#	'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ilmp',
+      	'USER': 'ilmpuser',
+        'PASSWORD': 'ilmpuser',
+        'HOST': 'ilmpdb-1.ci5gitzmjdfr.us-east-1.rds.amazonaws.com',
+        'PORT': '',
+
+
     }
 }
 
@@ -127,10 +210,17 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR,'static'),
-)
+#STATICFILES_DIRS = (
+#    os.path.join(BASE_DIR,'static'),
+#)
 
+#STATIC_ROOT = os.path.join(BASE_DIR,"static/")
+
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,"static"),
+]
+
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static_env","static_root")
 
 
 
