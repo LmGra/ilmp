@@ -10,6 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import ldap
+from django_auth_ldap.config import LDAPSearch
+
+
 from pathlib import Path
 import os
 #import django_google_maps
@@ -32,6 +36,10 @@ ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'ilmp_app.User'
 
+WAGTAIL_SITE_NAME = 'wagtail_app'
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +51,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+
+    'blog.apps.BlogAppConfig',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail',
+
+    'modelcluster',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -53,14 +77,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
 ]
 
 ROOT_URLCONF = 'ilmp.urls'
 
 #############LDAP###########
 
-import ldap
-from django_auth_ldap.config import LDAPSearch
+#import ldap
+#from django_auth_ldap.config import LDAPSearch
 
 
 # Baseline configuration.
@@ -93,38 +120,6 @@ AUTHENTICATION_BACKENDS = (
     "django_auth_ldap.backend.LDAPBackend",
     "django.contrib.auth.backends.ModelBackend",
 )
-
-
-#import ldap
-#from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
-
-
-# Baseline configuration.
-#AUTH_LDAP_SERVER_URI = "ldap://ldap.ilmpapp.duckdns.org"
-
-#AUTH_LDAP_BIND_DN = "cn=django,dc=example,dc=org"
-#AUTH_LDAP_BIND_PASSWORD = "phlebotinum"
-#AUTH_LDAP_USER_SEARCH = LDAPSearch(
-#    "ou=users,dc=example,dc=org", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
-#)
-
-# Set up the basic group parameters.
-#AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-#    "ou=django,ou=groups,dc=example,dc=org",
-#    ldap.SCOPE_SUBTREE,
-#    "(objectClass=groupOfNames)",
-#)
-#AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr="cn")
-
-#AUTHENTICATION_BACKENDS = (
-#    "django_auth_ldap.backend.LDAPBackend",
-#    "django.contrib.auth.backends.ModelBackend",
-#)
-
-
-
-
-############################
 
 TEMPLATES = [
     {
@@ -205,7 +200,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-#STATIC_ROOT = 'static/'
+STATIC_ROOT = 'static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
@@ -216,11 +211,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 #STATIC_ROOT = os.path.join(BASE_DIR,"static/")
 
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,"static"),
-]
+#STATICFILES_DIRS=[
+#    os.path.join(BASE_DIR,"static"),
+#]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static_env","static_root")
+#STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static_env","static_root")
 
 
 

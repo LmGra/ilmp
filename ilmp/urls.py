@@ -21,6 +21,15 @@ from ilmp_app.api import router
 from django.conf.urls.static import static
 from django.conf import settings
 
+#----------------------WAGTAIL
+#
+#
+from django.urls import path, include
+
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
+
 
 urlpatterns = [
     #Admin
@@ -33,9 +42,18 @@ urlpatterns = [
     #Accounts
     path("accounts/", include("django.contrib.auth.urls")),
     path("register/", views.register_request, name="register"),
+
+    #####################WAGTAIL###############
+    
+    path('cms/', include(wagtailadmin_urls)),
+    path('blog/', include(wagtail_urls)),
+    path('documents/', include(wagtaildocs_urls)),
+    path('pages/', include(wagtail_urls)),
+
+    ###############################################
     
     #Api
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-]+ static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
