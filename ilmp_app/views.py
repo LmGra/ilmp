@@ -5,13 +5,14 @@ from ilmp_app.decorator import check_pet_owner, check_lost_owner, check_find_own
 from django.utils.decorators import method_decorator
 
 from ilmp_app.forms import MascotasForm, PerdidosForm, EncuentrosForm, CorreoForm
+# arriba , CorreoForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from ilmp_app.models import User ,Mascotas, Encuentros, Perdidos
+from ilmp_app.models import Correo, User ,Mascotas, Encuentros, Perdidos
 from django.urls import reverse_lazy, reverse
 
 from .forms import NewUserForm
@@ -197,8 +198,13 @@ def createCorreo(request,pk):
         
     return render(request, "ilmp_app/correo_form.html", {"correo_form":correo_form})
 
+def correoRecivido(request):
+    correo_list = Correo.objects.filter(destinatario=request.user)
+    return render(request, "ilmp_app/correo_recivido.html",{"correo_recivido":correo_list})
 
-
+def correoEnviado(request):
+    correo_list = Correo.objects.filter(remitente=request.user)
+    return render(request, "ilmp_app/correo_enviado.html",{"correo_enviado":correo_list})
 
     
 #Buscador
