@@ -1,5 +1,11 @@
+<!DOCTYPE html>
 
+<html lang="es">
 <head>
+
+
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
@@ -13,15 +19,18 @@
     <meta charset="utf-8">
     <title>ILostMyPet</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="Apartado perdidos de Ilmp">
+    
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
+    
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:300;400;600;700;800&display=swap" rel="stylesheet">
-
+   <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans:300;400;600;700;800&display=swap" rel="stylesheet">
+-->
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
@@ -37,9 +46,10 @@
         <!-- Navbar Start -->
         <div class="container p-0">
             <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
-                <a href="" class="navbar-brand d-block d-lg-none">Navigation</a>
+                <!--<a href="" class="navbar-brand d-block d-lg-none">Navigation</a>-->
+    <h4 class="navbar-brand d-block d-lg-none">Menú</h4>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon">_</span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav m-auto">
@@ -49,6 +59,7 @@
                         {% endif %}
                         <a moz-do-not-send="true" href="{% url 'ilmp:perdidos-list' %}" class="nav-item nav-link">Perdidos</a>
                         <a moz-do-not-send="true" href="{% url 'ilmp:encuentros-list' %}" class="nav-item nav-link">Encuentros</a>
+        <a moz-do-not-send="true" href="/blog" class="nav-item nav-link">Blogs</a>
                         <div class="nav-item">
                             &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<!---->
                         </div>
@@ -68,7 +79,7 @@
 
                         <!--Buscador aquí-->
                         <!--
-                        <form action="{% url 'ilmp:search' %}" method="get">
+                        <form action=" url 'ilmp:search' " method="get">
                             <input name="q" type="text" placeholder="Search...">
                         </form>
                         -->
@@ -130,7 +141,7 @@
             <tbody>
             {% for perdido in object_list %}
               <tr>
-                <td><br><br><br><br>{{perdido.petLost.usrPet }}</td>
+                <td><br><br><br><br> <a href="{% url 'ilmp:correo_form' perdido.petLost.usrPet.id %}">{{perdido.petLost.usrPet }}</td>
                 <td><img width="160" height="160" alt="Image" class="img-fluid mb-4 mb-md-0" src="/media/{{ perdido.petLost.imgPet }}"></td>
                 <td><br><br><br><br>{{perdido.petLost }}</td>
                 <td><br><br><br>{{ perdido.infoLost }}</td>
@@ -180,7 +191,13 @@
           });
       </script>
 
-        
+              <!-- JavaScript Libraries -->
+              <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+              <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+              <script src="lib/easing/easing.min.js"></script>
+              <script src="lib/waypoints/waypoints.min.js"></script>
+              <!-- Template Javascript -->
+              <script src="../../static/js/main.js"></script>
         
 
 

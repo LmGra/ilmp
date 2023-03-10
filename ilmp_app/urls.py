@@ -1,6 +1,7 @@
 from django.urls import path
 #from django.conf.urls import include
-from ilmp_app.views import createCorreo,createEncuentros,creaperdidos,index,UserListView, search, listamascota, creamascota, UserCreateView, EncuentrosDeleteView, EncuentrosUpdateView, PerdidosUpdateView, PerdidosDeleteView,MascotasDeleteView, MascotasUpdateView, PerdidosDetailView, EncuentrosDetailView, MascotasDetailView, EncuentrosListView, PerdidosListView
+from ilmp_app.views import correoEnviado , correoRecivido , createCorreo, createEncuentros,creaperdidos,index,UserListView, search, listamascota, creamascota, UserCreateView, EncuentrosDeleteView, EncuentrosUpdateView, PerdidosUpdateView, PerdidosDeleteView,MascotasDeleteView, MascotasUpdateView, PerdidosDetailView, EncuentrosDetailView, MascotasDetailView, EncuentrosListView, PerdidosListView
+# arriba createCorreo,
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -38,12 +39,15 @@ urlpatterns = [
     #Correo
     
     path('correo/<int:pk>/', createCorreo, name='correo_form'),
+    path('correo/recibido', correoRecivido, name='correo_recivido'),
+    path('correo/enviado/', correoEnviado, name='correo_enviado'),
+    
     
     #Registro
     path("register/", UserCreateView.as_view(), name='user-add'),
     
     #Search
-    path('gimnasio/search/', search.as_view(), name="search"),
+    #path('aaaa/aaaa/', search.as_view(), name="search"),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

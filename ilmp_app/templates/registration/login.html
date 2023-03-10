@@ -1,3 +1,6 @@
+<!--<script src="https://www.google.com/recaptcha/api.js"></script>
+-->
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -11,6 +14,12 @@
 <form style="text-align:center" method="post">
   {% csrf_token %}
   {{ form.as_p }}
+  <!--
+  <button class="g-recaptcha"
+        data-sitekey="6Lcl064kAAAAAFUJNwhoi4gN6Vx9RH-70y9IQD9d" 
+        data-callback='onSubmit' 
+        data-action='submit'>Log In</button>
+  -->
   <button type="submit">Log In</button>
   <br><br>
 </form>
@@ -18,4 +27,10 @@
 
 
 {% endblock %}
-
+<!--
+<script>
+  function onSubmit(token) {
+    document.getElementById("demo-form").submit();
+  }
+</script>
+-->

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+               <!-- Blog List Start -->
+               <div class="container bg-backblue pt-5">
+                <div class="row blog-item px-3 pb-5">
+                    <div class="col-md-12">
+                        <h2 align="center" class="font-weight-bold">Mis Mensajes</h2>
+                        <br>
+                        {% if correo_enviado %}
+        <table>
+            <div class="container bg-backblue pt-2">
+                <div class="row blog-item bg-blue px-3 pb-4 pt-4">
+                    <div class="col-md-7">
+                        <br>
+                        <thead>
+                        <tr>
+                        <th>
+                            Remitente
+                        </th>
+                        <th>
+                            Asunto
+                        </th>
+                        <th>
+                            Mensaje
+                        </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for correo in correo_enviado %}
+                                <tr>
+                                    <td>
+                                        {{ correo.destinatario}}
+                                    </td>
+                                    <td>
+                                        {{ correo.asunto}}
+                                    </td>
+                                    <td>
+                                        {{ correo.mensaje}}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    
+                </div>
+            </div>
+                                
+            {% else %}
+                <li>No tienes mensajes enviados.</li>
+
+            {% endif %}
+        <br>
+        </table>
+{% endblock %}

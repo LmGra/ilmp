@@ -16,5 +16,5 @@ admin.site.register(Mascotas)
 admin.site.register(Perdidos)
 admin.site.register(Encuentros)
 admin.site.register(User)
-admin.site.register(Correo)
+#admin.site.register(Correo)
 
