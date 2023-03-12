@@ -76,8 +76,8 @@ class Encuentros(models.Model):
         return self.typeFind
     
 class Correo(models.Model):
-    remitente = models.OneToOneField(User, related_name='remitente', on_delete=models.CASCADE, null=True)
-    destinatario = models.OneToOneField(User, related_name='destinatario', on_delete=models.CASCADE, null=True)
+    remitente = models.ForeignKey(User, related_name='remitente', on_delete=models.CASCADE, null=True)
+    destinatario = models.ForeignKey(User, related_name='destinatario', on_delete=models.CASCADE, null=True)
     asunto = models.CharField(max_length=64, blank=False, null=False)
     mensaje = models.CharField(max_length=256, blank=False, null=False)
     
